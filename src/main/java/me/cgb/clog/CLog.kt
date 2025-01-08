@@ -63,13 +63,19 @@ object CLog {
             }
         }
         val thread = config.threadFormatAdapter?.format(Thread.currentThread())
-        val stackTrace = config.stackTraceFormatAdapter?.format(StackTraceUtils.getCroppedStackTrace())
+        val stackTrace = config.stackTraceFormatAdapter?.format(StackTraceUtils.getCroppedStackTrace(config.stackTraceDepth))
 
-        val log = config.logDecoration?.decorate(level, tag, arrayOf(thread, msg, stackTrace))
-            ?: (if (thread != null) thread + Constants.LINE_SEPARATOR else "" +
-                    "$msg${Constants.LINE_SEPARATOR}" +
-                    if (stackTrace != null) stackTrace + Constants.LINE_SEPARATOR else "")
+        val log = config.logDecoration?.decorate(level, tag, arrayOf(thread, msg, stackTrace)) ?: generateLog(thread, msg, stackTrace)
         config.printer.println(level, tag, log)
+    }
+
+    private fun generateLog(thread: String?, msg: String, stackTrace: String?): String {
+        val builder = StringBuilder().apply {
+            thread?.let { append(thread).append(Constants.LINE_SEPARATOR) }
+            append(msg).append(Constants.LINE_SEPARATOR)
+            stackTrace?.let { append(stackTrace).append(Constants.LINE_SEPARATOR) }
+        }
+        return builder.toString()
     }
 
 

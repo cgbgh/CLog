@@ -10,7 +10,7 @@ package me.cgb.clog.format.stacktrace
  */
 class DefaultStackTraceFormatAdapter : IStackTraceFormatAdapter {
 
-    override fun format(data: Array<StackTraceElement>): String {
+    override fun format(data: Array<StackTraceElement?>): String {
         if (data.isEmpty()) {
             return ""
         }
@@ -20,7 +20,7 @@ class DefaultStackTraceFormatAdapter : IStackTraceFormatAdapter {
             if (index == 0) {
                 builder.append("┌ ").append(element.toString()).append(Constants.LINE_SEPARATOR)
             } else if (index != data.size - 1) {
-                builder.append("├  ").append(element.toString()).append(Constants.LINE_SEPARATOR)
+                builder.append("├ ").append(element.toString()).append(Constants.LINE_SEPARATOR)
             } else {
                 builder.append("└ ").append(element.toString())
             }

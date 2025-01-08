@@ -10,5 +10,5 @@ import me.cgb.clog.format.IFormatAdapter
  * <p>
  * ================================================
  */
-interface IStackTraceFormatAdapter: IFormatAdapter<Array<StackTraceElement>> {
+interface IStackTraceFormatAdapter: IFormatAdapter<Array<StackTraceElement?>> {
 }

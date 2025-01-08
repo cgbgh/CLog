@@ -61,8 +61,8 @@ data class Config(
         fun logLevel(@CLog.Level logLevel: Int) = apply { this.logLevel = logLevel }
         fun globalTag(globalTag: String) = apply { this.globalTag = globalTag }
         fun withThreadInfo(withThreadInfo: Boolean) = apply { this.withThreadInfo = withThreadInfo }
-        fun withStackTrace(withStackTrace: Boolean, stackTraceDepth: Int) = apply {
-            this.withStackTrace = withStackTrace
+        fun withStackTrace(stackTraceDepth: Int) = apply {
+            this.withStackTrace = true
             this.stackTraceDepth = stackTraceDepth
         }
 
