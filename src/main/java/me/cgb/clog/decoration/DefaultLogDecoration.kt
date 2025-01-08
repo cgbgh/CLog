@@ -12,24 +12,24 @@ import me.cgb.clog.format.stacktrace.Constants
  */
 class DefaultLogDecoration : ILogDecoration {
     companion object {
-        const val MAX_LENGTH = 128 - 4
+        const val MAX_LENGTH = 96 - 4
 
-        //        ┏ + 128 ━ + ┓
+        //        ┏ + 96 ━ + ┓
         const val HORIZONTAL_DECORATION_TOP =
-            "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" +
-                    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
+            "┏━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" +
+                    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┓"
 
         const val VERTICAL_DECORATION = "┃"
 
-        //        ┣ + 128 - + ┫
+        //        ┣ + 96 - + ┫
         const val HORIZONTAL_DECORATION_DIVIDER =
-            "┣----------------------------------------------------------------" +
-                    "----------------------------------------------------------------┫"
+            "┣------------------------------------------------" +
+                    "------------------------------------------------┫"
 
-        //        ┗ + 128 ━ + ┛
+        //        ┗ + 96 ━ + ┛
         const val HORIZONTAL_DECORATION_BOTTOM =
-            "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" +
-                    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
+            "┗━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━" +
+                    "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━┛"
 
         const val INDENT = "  "
         const val SPACE = " "
@@ -73,8 +73,8 @@ class DefaultLogDecoration : ILogDecoration {
             }
         } else {
             builder.append(VERTICAL_DECORATION).append(INDENT).append(log)
-            if (MAX_LENGTH - log.length > 0) {
-                for (count in 0 until (MAX_LENGTH - log.length + 2)) {
+            if (MAX_LENGTH - log.length + INDENT.length > 0) {
+                for (count in 0 until (MAX_LENGTH - log.length + INDENT.length)) {
                     builder.append(SPACE)
                 }
             }
