@@ -8,7 +8,7 @@ package me.cgb.clog.format.json
  * <p>
  * ================================================
  */
-class DefaultJsonFormatAdapter: JsonFormatAdapter {
+class DefaultJsonFormatAdapter: IJsonFormatAdapter {
     override fun format(json: String): String {
         // TODO: make json formatted
         return json

@@ -8,6 +8,6 @@ package me.cgb.clog.format
  * <p> Format adapter, used to format different types of content into printable text
  * ================================================
  */
-interface IFormatAdapter<D> {
+interface IFormatAdapter<D : Any> {
     fun format(data: D): String
 }

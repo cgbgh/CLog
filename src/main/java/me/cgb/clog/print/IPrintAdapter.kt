@@ -18,5 +18,5 @@ interface IPrintAdapter {
      * @param level  the level of log
      * @param msg       the msg of log
      */
-    fun println(tag: String, @CLog.Level level: Int, msg: String)
+    fun println(@CLog.Level level: Int, tag: String, msg: String)
 }

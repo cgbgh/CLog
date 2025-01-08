@@ -1,14 +1,14 @@
-package me.cgb.clog.format.json
+package me.cgb.clog.format.thread
 
 import me.cgb.clog.format.IFormatAdapter
 
 /**
  * ================================================
  * @author cgb
- * @date 2025/1/5
+ * @date 2025/1/6
  * @desc
  * <p>
  * ================================================
  */
-interface JsonFormatAdapter : IFormatAdapter<String> {
+interface IThreadFormatAdapter: IFormatAdapter<Thread> {
 }

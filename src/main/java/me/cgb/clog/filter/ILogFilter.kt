@@ -19,5 +19,5 @@ interface ILogFilter {
      * @param msg       the msg of log
      * @return Whether filter out this log, if true filter out, otherwise print it.
      */
-    fun filter(tag: String, @CLog.Level level: Int, msg: String): Boolean
+    fun filter(@CLog.Level level: Int, tag: String, msg: String): Boolean
 }

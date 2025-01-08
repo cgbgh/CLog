@@ -1,4 +1,6 @@
-package me.cgb.clog.strategy
+package me.cgb.clog.format.json
+
+import me.cgb.clog.format.IFormatAdapter
 
 /**
  * ================================================
@@ -8,5 +10,5 @@ package me.cgb.clog.strategy
  * <p>
  * ================================================
  */
-class DefaultPrintStrategy : IPrintStrategy {
+interface IJsonFormatAdapter : IFormatAdapter<String> {
 }

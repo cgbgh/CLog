@@ -11,5 +11,5 @@ import me.cgb.clog.CLog
  * ================================================
  */
 interface ILogDecoration {
-    fun decorate(tag: String, @CLog.Level level: Int, segments: Array<String>): String
+    fun decorate(@CLog.Level level: Int, tag: String, segments: Array<String?>): String
 }

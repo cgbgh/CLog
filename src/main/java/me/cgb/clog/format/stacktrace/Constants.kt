@@ -1,12 +1,13 @@
-package me.cgb.clog.strategy
+package me.cgb.clog.format.stacktrace
 
 /**
  * ================================================
  * @author cgb
- * @date 2025/1/4
+ * @date 2025/1/6
  * @desc
- * <p> Log printing strategy
+ * <p>
  * ================================================
  */
-interface IPrintStrategy {
+object Constants {
+    const val LINE_SEPARATOR = "\n"
 }
