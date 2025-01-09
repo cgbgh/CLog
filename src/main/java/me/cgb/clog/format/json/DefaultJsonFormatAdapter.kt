@@ -1,5 +1,10 @@
 package me.cgb.clog.format.json
 
+import android.util.Log
+import me.cgb.clog.format.stacktrace.Constants
+import org.json.JSONArray
+import org.json.JSONObject
+
 /**
  * ================================================
  * @author cgb
@@ -8,9 +13,18 @@ package me.cgb.clog.format.json
  * <p>
  * ================================================
  */
-class DefaultJsonFormatAdapter: IJsonFormatAdapter {
+class DefaultJsonFormatAdapter : IJsonFormatAdapter {
+
     override fun format(json: String): String {
-        // TODO: make json formatted
+        Log.d("cgb", "format() called with: json = $json")
+        try {
+            if (json.startsWith(Constants.BRACE_START)) {
+                return JSONObject(json).toString(Constants.INDENT_SPACE)
+            } else if (json.startsWith(Constants.SQUARE_BRACKETS_START)) {
+                return JSONArray(json).toString(Constants.INDENT_SPACE)
+            }
+        } catch (ignore: Exception) {
+        }
         return json
     }
 }

@@ -165,7 +165,7 @@ object CLog {
     @JvmStatic
     fun json(json: String) {
         assertInitialized()
-        if (config.logLevel < LogLevel.DEBUG) {
+        if (config.logLevel > LogLevel.DEBUG) {
             return
         }
         printlnInternal(LogLevel.DEBUG, config.globalTag, config.jsonFormatter.format(json))
