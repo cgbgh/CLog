@@ -63,9 +63,11 @@ object CLog {
             }
         }
         val thread = config.threadFormatAdapter?.format(Thread.currentThread())
-        val stackTrace = config.stackTraceFormatAdapter?.format(StackTraceUtils.getCroppedStackTrace(config.stackTraceDepth))
+        val stackTrace =
+            config.stackTraceFormatAdapter?.format(StackTraceUtils.getCroppedStackTrace(config.stackTraceDepth))
 
-        val log = config.logDecoration?.decorate(level, tag, arrayOf(thread, msg, stackTrace)) ?: generateLog(thread, msg, stackTrace)
+        val log = config.logDecoration?.decorate(level, tag, arrayOf(thread, msg, stackTrace))
+            ?: generateLog(thread, msg, stackTrace)
         config.printer.println(level, tag, log)
     }
 

@@ -6,9 +6,11 @@ import me.cgb.clog.format.IFormatAdapter
 import me.cgb.clog.format.json.IJsonFormatAdapter
 import me.cgb.clog.format.stacktrace.IStackTraceFormatAdapter
 import me.cgb.clog.format.thread.IThreadFormatAdapter
-import me.cgb.clog.internal.DefaultFactory
+import me.cgb.clog.internal.Defaults
 import me.cgb.clog.print.IPrintAdapter
 import me.cgb.clog.print.PrintAdapterSet
+import me.cgb.clog.print.typeset.ITypesetter
+import me.cgb.clog.print.typeset.ITypesetting
 import java.util.Collections
 
 /**
@@ -57,6 +59,7 @@ data class Config(
         var logFilters: MutableList<ILogFilter>? = null
         var logDecoration: ILogDecoration? = null
         var enableDecoration: Boolean = false
+        var typesetter: ITypesetter? = null
 
         fun logLevel(@CLog.Level logLevel: Int) = apply { this.logLevel = logLevel }
         fun globalTag(globalTag: String) = apply { this.globalTag = globalTag }
@@ -93,6 +96,8 @@ data class Config(
         fun stackTraceFormatAdapter(stackTraceFormatAdapter: IStackTraceFormatAdapter) =
             apply { this.stackTraceFormatAdapter = stackTraceFormatAdapter }
 
+        fun typesetter(typesetter: ITypesetter) = apply { this.typesetter = typesetter }
+
         fun build(): Config {
             initDefault()
             return Config(
@@ -111,17 +116,23 @@ data class Config(
 
         private fun initDefault() {
             if (printer.isEmpty()) {
-                this.printer.addPrintAdapter(DefaultFactory.defaultPrintAdapter())
+                this.printer.addPrintAdapter(Defaults.defaultPrintAdapter())
             }
-            jsonFormatAdapter = jsonFormatAdapter ?: DefaultFactory.defaultJsonFormatAdapter()
+            jsonFormatAdapter = jsonFormatAdapter ?: Defaults.defaultJsonFormatAdapter()
             threadFormatAdapter = threadFormatAdapter
-                ?: if (withThreadInfo) DefaultFactory.defaultThreadFormatAdapter() else null
+                ?: if (withThreadInfo) Defaults.defaultThreadFormatAdapter() else null
             stackTraceFormatAdapter =
                 stackTraceFormatAdapter
-                    ?: if (withStackTrace) DefaultFactory.defaultStackTrackFormatAdapter() else null
+                    ?: if (withStackTrace) Defaults.defaultStackTrackFormatAdapter() else null
             logDecoration = logDecoration
-                ?: (if (enableDecoration) DefaultFactory.defaultLogDecoration() else null)
-            logFilters = logFilters ?: Collections.singletonList(DefaultFactory.defaultLogFilter())
+                ?: (if (enableDecoration) Defaults.defaultLogDecoration() else null)
+            logFilters = logFilters ?: Collections.singletonList(Defaults.defaultLogFilter())
+
+            for (adapter in printer) {
+                if (adapter is ITypesetting) {
+                    adapter.typesetter = typesetter
+                }
+            }
         }
     }
 }

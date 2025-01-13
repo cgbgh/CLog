@@ -8,7 +8,7 @@ package me.cgb.clog.print
  * <p>
  * ================================================
  */
-class PrintAdapterSet : IPrintAdapter {
+class PrintAdapterSet : IPrintAdapter, Iterable<IPrintAdapter> {
     private val printAdapters = mutableListOf<IPrintAdapter>()
 
     override fun println(level: Int, tag: String, msg: String) {
@@ -28,4 +28,7 @@ class PrintAdapterSet : IPrintAdapter {
     }
 
     fun isEmpty() = printAdapters.isEmpty()
+    override fun iterator(): Iterator<IPrintAdapter> {
+        return printAdapters.iterator()
+    }
 }

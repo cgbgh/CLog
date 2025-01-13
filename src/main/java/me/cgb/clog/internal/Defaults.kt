@@ -6,6 +6,7 @@ import me.cgb.clog.format.json.DefaultJsonFormatAdapter
 import me.cgb.clog.format.stacktrace.DefaultStackTraceFormatAdapter
 import me.cgb.clog.format.thread.DefaultThreadFormatAdapter
 import me.cgb.clog.print.AndroidPrintAdapter
+import me.cgb.clog.print.typeset.DefaultTypesetter
 
 /**
  * ================================================
@@ -15,7 +16,7 @@ import me.cgb.clog.print.AndroidPrintAdapter
  * <p>
  * ================================================
  */
-object DefaultFactory {
+object Defaults {
     fun defaultPrintAdapter() = AndroidPrintAdapter()
 
     fun defaultLogDecoration() = DefaultLogDecoration()
@@ -27,4 +28,6 @@ object DefaultFactory {
     fun defaultThreadFormatAdapter() = DefaultThreadFormatAdapter()
 
     fun defaultStackTrackFormatAdapter() = DefaultStackTraceFormatAdapter()
+
+    fun defaultTypesetter() = DefaultTypesetter()
 }
