@@ -6,6 +6,7 @@ import me.cgb.clog.format.IFormatAdapter
 import me.cgb.clog.format.json.IJsonFormatAdapter
 import me.cgb.clog.format.stacktrace.IStackTraceFormatAdapter
 import me.cgb.clog.format.thread.IThreadFormatAdapter
+import me.cgb.clog.internal.Constants
 import me.cgb.clog.internal.Defaults
 import me.cgb.clog.print.IPrintAdapter
 import me.cgb.clog.print.PrintAdapterSet
@@ -47,7 +48,7 @@ data class Config(
     class Builder {
         @CLog.Level
         var logLevel: Int = LogLevel.NOISY
-        var globalTag: String = "CLog"
+        var globalTag: String = Constants.DEFAULT_GLOBAL_TAG
         var withThreadInfo: Boolean = false
         var withStackTrace: Boolean = false
         var stackTraceDepth: Int = 5

@@ -7,7 +7,7 @@ import me.cgb.clog.format.stacktrace.DefaultStackTraceFormatAdapter
 import me.cgb.clog.format.thread.DefaultThreadFormatAdapter
 import me.cgb.clog.print.AndroidPrintAdapter
 import me.cgb.clog.print.file.clean.NeverCleanStrategy
-import me.cgb.clog.print.file.generator.DefaultLogFileGenerator
+import me.cgb.clog.print.file.generator.GlobalTagFileGenerator
 import me.cgb.clog.print.file.header.DefaultLogHeader
 import me.cgb.clog.print.file.storage.NeverLimitStorageStrategy
 import me.cgb.clog.print.file.writer.DefaultFileWriter
@@ -42,7 +42,7 @@ object Defaults {
 
     fun defaultStorageStrategy() = NeverLimitStorageStrategy()
 
-    fun defaultLogFileGenerator() = DefaultLogFileGenerator()
+    fun defaultLogFileGenerator() = GlobalTagFileGenerator()
 
     fun defaultCleanStrategy() = NeverCleanStrategy()
 

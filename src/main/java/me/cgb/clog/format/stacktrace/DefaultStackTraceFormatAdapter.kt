@@ -1,5 +1,7 @@
 package me.cgb.clog.format.stacktrace
 
+import me.cgb.clog.internal.Constants
+
 /**
  * ================================================
  * @author cgb

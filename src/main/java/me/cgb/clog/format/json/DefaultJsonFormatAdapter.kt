@@ -1,7 +1,7 @@
 package me.cgb.clog.format.json
 
 import android.util.Log
-import me.cgb.clog.format.stacktrace.Constants
+import me.cgb.clog.internal.Constants
 import org.json.JSONArray
 import org.json.JSONObject
 

@@ -2,7 +2,7 @@ package me.cgb.clog.print.typeset
 
 import me.cgb.clog.LogLevel
 import me.cgb.clog.data.LogItem
-import me.cgb.clog.format.stacktrace.Constants
+import me.cgb.clog.internal.Constants
 import java.text.SimpleDateFormat
 import java.util.Locale
 

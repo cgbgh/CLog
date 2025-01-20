@@ -1,4 +1,4 @@
-package me.cgb.clog.format.stacktrace
+package me.cgb.clog.internal
 
 /**
  * ================================================
@@ -14,5 +14,6 @@ object Constants {
     const val BRACE_START = "{"
     const val SQUARE_BRACKETS_START = "["
     const val INDENT_SPACE = 2
+    const val DEFAULT_GLOBAL_TAG = "CLog"
 
 }

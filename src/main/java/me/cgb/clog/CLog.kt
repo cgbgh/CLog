@@ -2,7 +2,7 @@ package me.cgb.clog
 
 import androidx.annotation.IntDef
 import me.cgb.clog.format.IFormatAdapter
-import me.cgb.clog.format.stacktrace.Constants
+import me.cgb.clog.internal.Constants
 import me.cgb.clog.utils.StackTraceUtils
 
 /**
@@ -15,7 +15,7 @@ import me.cgb.clog.utils.StackTraceUtils
  */
 object CLog {
     private var isInitialized = false
-    private lateinit var config: Config
+    internal lateinit var config: Config
     fun init() {
         init(Config.build {})
     }

@@ -1,6 +1,6 @@
 package me.cgb.clog.decoration
 
-import me.cgb.clog.format.stacktrace.Constants
+import me.cgb.clog.internal.Constants
 
 /**
  * ================================================
