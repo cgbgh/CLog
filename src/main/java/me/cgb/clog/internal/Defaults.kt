@@ -6,10 +6,10 @@ import me.cgb.clog.format.json.DefaultJsonFormatAdapter
 import me.cgb.clog.format.stacktrace.DefaultStackTraceFormatAdapter
 import me.cgb.clog.format.thread.DefaultThreadFormatAdapter
 import me.cgb.clog.print.AndroidPrintAdapter
-import me.cgb.clog.print.file.clean.DefaultCleanStrategy
+import me.cgb.clog.print.file.clean.NeverCleanStrategy
 import me.cgb.clog.print.file.generator.DefaultLogFileGenerator
 import me.cgb.clog.print.file.header.DefaultLogHeader
-import me.cgb.clog.print.file.storage.DefaultLogStorageStrategy
+import me.cgb.clog.print.file.storage.NeverLimitStorageStrategy
 import me.cgb.clog.print.file.writer.DefaultFileWriter
 import me.cgb.clog.print.typeset.DefaultTypesetter
 import java.util.concurrent.ExecutorService
@@ -40,11 +40,11 @@ object Defaults {
 
     fun defaultFileWriter() = DefaultFileWriter()
 
-    fun defaultStorageStrategy() = DefaultLogStorageStrategy()
+    fun defaultStorageStrategy() = NeverLimitStorageStrategy()
 
     fun defaultLogFileGenerator() = DefaultLogFileGenerator()
 
-    fun defaultCleanStrategy() = DefaultCleanStrategy()
+    fun defaultCleanStrategy() = NeverCleanStrategy()
 
     fun defaultFileHeader() = DefaultLogHeader()
 

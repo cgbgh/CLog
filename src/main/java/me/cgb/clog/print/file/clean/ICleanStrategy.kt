@@ -14,6 +14,4 @@ interface ICleanStrategy {
 
     fun shouldClean(file: File): Boolean
 
-    fun clean(folder: File)
-
 }

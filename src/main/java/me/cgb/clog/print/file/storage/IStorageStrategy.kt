@@ -10,8 +10,7 @@ import java.io.File
  * <p>
  * ================================================
  */
-interface ILogStorageStrategy {
+interface IStorageStrategy {
 
-    fun shouldStored(writingFile: File): Boolean
-
+    fun isReachesLimit(file: File): Boolean
 }

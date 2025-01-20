@@ -5,7 +5,7 @@ import me.cgb.clog.print.AbstractTypesettingPrintAdapter
 import me.cgb.clog.print.file.clean.ICleanStrategy
 import me.cgb.clog.print.file.generator.ILogFileGenerator
 import me.cgb.clog.print.file.header.ILogHeader
-import me.cgb.clog.print.file.storage.ILogStorageStrategy
+import me.cgb.clog.print.file.storage.IStorageStrategy
 import me.cgb.clog.print.file.writer.IFileWriter
 import me.cgb.clog.print.typeset.ITypesetter
 import java.io.File
@@ -23,7 +23,7 @@ import java.util.concurrent.LinkedBlockingQueue
  */
 class FilePrintAdapter(builder: Builder) : AbstractTypesettingPrintAdapter() {
     private val writer: IFileWriter = builder.writer ?: Defaults.defaultFileWriter()
-    private val storageStrategy: ILogStorageStrategy =
+    private val storageStrategy: IStorageStrategy =
         builder.storageStrategy ?: Defaults.defaultStorageStrategy()
     private val logFileGenerator: ILogFileGenerator =
         builder.logFileGenerator ?: Defaults.defaultLogFileGenerator()
@@ -50,8 +50,10 @@ class FilePrintAdapter(builder: Builder) : AbstractTypesettingPrintAdapter() {
             cleanLogIfNeeded()
             writingFile = generateWritingFile(folder)
         }
-        if (storageStrategy.shouldStored(writingFile)) {
+        if (storageStrategy.isReachesLimit(writingFile)) {
             writer.close()
+            transfer(writingFile)
+            cleanLogIfNeeded()
             generateWritingFile(folder)
         }
         if (!writer.openWriter(writingFile)) {
@@ -62,6 +64,16 @@ class FilePrintAdapter(builder: Builder) : AbstractTypesettingPrintAdapter() {
             writer.appendLog(header.createHeader())
         }
         writer.appendLog(content)
+    }
+
+    private fun transfer(file: File) {
+        for (i in 0 until Int.MAX_VALUE) {
+            val transferFile = File(file.name + ".$i")
+            if (!transferFile.exists()) {
+                file.renameTo(transferFile)
+            }
+
+        }
     }
 
     private fun onError(msg: String) {
@@ -92,7 +104,7 @@ class FilePrintAdapter(builder: Builder) : AbstractTypesettingPrintAdapter() {
 
     class Builder(val logFolder: String) {
         var cleanStrategy: ICleanStrategy? = null
-        var storageStrategy: ILogStorageStrategy? = null
+        var storageStrategy: IStorageStrategy? = null
         var logFileGenerator: ILogFileGenerator? = null
         var writer: IFileWriter? = null
         var typesetter: ITypesetter? = null
