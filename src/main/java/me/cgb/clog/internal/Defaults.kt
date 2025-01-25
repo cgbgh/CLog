@@ -1,7 +1,7 @@
 package me.cgb.clog.internal
 
 import me.cgb.clog.decoration.DefaultLogDecoration
-import me.cgb.clog.filter.DefaultLogFilter
+import me.cgb.clog.filter.NothingFilter
 import me.cgb.clog.format.json.DefaultJsonFormatAdapter
 import me.cgb.clog.format.stacktrace.DefaultStackTraceFormatAdapter
 import me.cgb.clog.format.thread.DefaultThreadFormatAdapter
@@ -30,7 +30,7 @@ object Defaults {
 
     fun defaultJsonFormatAdapter() = DefaultJsonFormatAdapter()
 
-    fun defaultLogFilter() = DefaultLogFilter()
+    fun defaultLogFilter() = NothingFilter()
 
     fun defaultThreadFormatAdapter() = DefaultThreadFormatAdapter()
 

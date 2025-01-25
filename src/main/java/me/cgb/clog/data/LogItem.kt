@@ -15,6 +15,5 @@ data class LogItem(
     val tag: String,
     val msg: String,
     val timeMillis: Long,
-    val threadName: String,
-    val tid: Long,
+    val thread: Thread,
 )

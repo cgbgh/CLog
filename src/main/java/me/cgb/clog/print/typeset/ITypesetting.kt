@@ -12,6 +12,4 @@ import me.cgb.clog.data.LogItem
  */
 interface ITypesetting {
     var typesetter: ITypesetter?
-
-    fun typeset(item: LogItem): String
 }

@@ -1,6 +1,6 @@
 package me.cgb.clog.filter
 
-import me.cgb.clog.CLog
+import me.cgb.clog.data.LogItem
 
 /**
  * ================================================
@@ -19,5 +19,5 @@ interface ILogFilter {
      * @param msg       the msg of log
      * @return Whether filter out this log, if true filter out, otherwise print it.
      */
-    fun filter(@CLog.Level level: Int, tag: String, msg: String): Boolean
+    fun filter(logItem: LogItem): Boolean
 }

@@ -21,14 +21,14 @@ class DefaultTypesetter : ITypesetter {
         val time = dateFormat?.format(item.timeMillis) ?: ""
         val builder = StringBuilder()
         for (log in logs) {
-            builder.append("$time ${item.threadName}(${item.tid}) ")
+            builder.append("$time ${item.thread.name}(${item.thread.id}) ")
                 .append("${LogLevel.shortLevelName(item.level)}/${item.tag}: $log")
                 .append(Constants.LINE_SEPARATOR)
         }
         if (builder.isNotEmpty()) {
             return builder.toString()
         }
-        return "$time ${item.threadName}(${item.tid}) ${LogLevel.shortLevelName(item.level)}/${item.tag}: ${item.msg}"
+        return "$time ${item.thread.name}(${item.thread.id}) ${LogLevel.shortLevelName(item.level)}/${item.tag}: ${item.msg}"
     }
 
 }

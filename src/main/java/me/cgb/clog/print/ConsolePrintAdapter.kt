@@ -1,5 +1,7 @@
 package me.cgb.clog.print
 
+import me.cgb.clog.data.LogItem
+
 /**
  * ================================================
  * @author cgb
@@ -9,7 +11,7 @@ package me.cgb.clog.print
  * ================================================
  */
 class ConsolePrintAdapter : AbstractTypesettingPrintAdapter() {
-    override fun println(content: String) {
-        kotlin.io.println(content)
+    override fun println(item: LogItem) {
+        println(item.msg)
     }
 }

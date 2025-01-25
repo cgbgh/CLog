@@ -1,8 +1,10 @@
 package me.cgb.clog
 
 import androidx.annotation.IntDef
+import me.cgb.clog.data.LogItem
 import me.cgb.clog.format.IFormatAdapter
 import me.cgb.clog.internal.Constants
+import me.cgb.clog.print.typeset.ITypesetting
 import me.cgb.clog.utils.StackTraceUtils
 
 /**
@@ -44,6 +46,11 @@ object CLog {
 
     @JvmStatic
     fun println(@Level level: Int, msg: String, vararg args: Any) {
+        println(level, config.globalTag, msg, args)
+    }
+
+    @JvmStatic
+    fun println(@Level level: Int, tag: String, msg: String, vararg args: Any) {
         assertInitialized()
         if (config.logLevel > level) {
             return
@@ -58,8 +65,10 @@ object CLog {
     @JvmStatic
     fun printlnInternal(@Level level: Int, tag: String, msg: String) {
         if (!config.logFilters.isNullOrEmpty()) {
+            val currentThread = Thread.currentThread()
+            val logItem = LogItem(level, tag, msg, System.currentTimeMillis(), currentThread)
             for (filter in config.logFilters!!) {
-                if (filter.filter(level, tag, msg)) return
+                if (filter.filter(logItem)) return
             }
         }
         val thread = config.threadFormatAdapter?.format(Thread.currentThread())
@@ -68,6 +77,10 @@ object CLog {
 
         val log = config.logDecoration?.decorate(level, tag, arrayOf(thread, msg, stackTrace))
             ?: generateLog(thread, msg, stackTrace)
+        if (config.printer is ITypesetting) {
+            (config.printer as ITypesetting).typesetter = config.typesetter
+        }
+        config.printer
         config.printer.println(level, tag, log)
     }
 
@@ -112,6 +125,11 @@ object CLog {
     @JvmStatic
     fun v(msg: String, vararg args: Any) {
         println(LogLevel.VERBOSE, msg, *args)
+    }
+
+    @JvmStatic
+    fun v(tag: String, msg: String, vararg args: Any) {
+        println(LogLevel.VERBOSE, msg, args)
     }
 
     @JvmStatic

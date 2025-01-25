@@ -1,5 +1,7 @@
 package me.cgb.clog.filter
 
+import me.cgb.clog.data.LogItem
+
 /**
  * ================================================
  * @author cgb
@@ -8,8 +10,8 @@ package me.cgb.clog.filter
  * <p>
  * ================================================
  */
-class DefaultLogFilter: ILogFilter {
-    override fun filter(level: Int, tag: String, msg: String): Boolean {
+class NothingFilter : ILogFilter {
+    override fun filter(logItem: LogItem): Boolean {
         return false
     }
 }

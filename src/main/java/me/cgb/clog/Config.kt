@@ -11,7 +11,6 @@ import me.cgb.clog.internal.Defaults
 import me.cgb.clog.print.IPrintAdapter
 import me.cgb.clog.print.PrintAdapterSet
 import me.cgb.clog.print.typeset.ITypesetter
-import me.cgb.clog.print.typeset.ITypesetting
 import java.util.Collections
 
 /**
@@ -28,12 +27,13 @@ data class Config(
     val globalTag: String,
     val stackTraceDepth: Int,
     val printer: IPrintAdapter,
-    val formatAdapterMap: Map<Class<*>, IFormatAdapter<*>>?,
-    val logFilters: List<ILogFilter>?,
-    val logDecoration: ILogDecoration?,
     val jsonFormatter: IJsonFormatAdapter,
-    val threadFormatAdapter: IThreadFormatAdapter?,
-    val stackTraceFormatAdapter: IStackTraceFormatAdapter?,
+    val formatAdapterMap: Map<Class<*>, IFormatAdapter<*>>? = null,
+    val logFilters: List<ILogFilter>? = null,
+    val logDecoration: ILogDecoration? = null,
+    val threadFormatAdapter: IThreadFormatAdapter? = null,
+    val stackTraceFormatAdapter: IStackTraceFormatAdapter? = null,
+    var typesetter: ITypesetter? = null
 ) {
 
     companion object {
@@ -60,6 +60,7 @@ data class Config(
         var logFilters: MutableList<ILogFilter>? = null
         var logDecoration: ILogDecoration? = null
         var enableDecoration: Boolean = false
+        var enableTypesetter: Boolean = false
         var typesetter: ITypesetter? = null
 
         fun logLevel(@CLog.Level logLevel: Int) = apply { this.logLevel = logLevel }
@@ -97,7 +98,14 @@ data class Config(
         fun stackTraceFormatAdapter(stackTraceFormatAdapter: IStackTraceFormatAdapter) =
             apply { this.stackTraceFormatAdapter = stackTraceFormatAdapter }
 
-        fun typesetter(typesetter: ITypesetter) = apply { this.typesetter = typesetter }
+        fun enableTypesetter(enable: Boolean) = apply {
+            this.enableTypesetter = enable
+        }
+
+        fun typesetter(typesetter: ITypesetter) = apply {
+            this.enableTypesetter = true
+            this.typesetter = typesetter
+        }
 
         fun build(): Config {
             initDefault()
@@ -106,12 +114,13 @@ data class Config(
                 globalTag,
                 stackTraceDepth,
                 printer,
+                jsonFormatAdapter!!,
                 formatAdapterMap,
                 logFilters,
                 logDecoration,
-                jsonFormatAdapter!!,
                 threadFormatAdapter,
                 stackTraceFormatAdapter,
+                typesetter
             )
         }
 
@@ -129,10 +138,8 @@ data class Config(
                 ?: (if (enableDecoration) Defaults.defaultLogDecoration() else null)
             logFilters = logFilters ?: Collections.singletonList(Defaults.defaultLogFilter())
 
-            for (adapter in printer) {
-                if (adapter is ITypesetting) {
-                    adapter.typesetter = typesetter
-                }
+            if (enableTypesetter) {
+                this.typesetter = this.typesetter ?: Defaults.defaultTypesetter()
             }
         }
     }

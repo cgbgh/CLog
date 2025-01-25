@@ -1,5 +1,6 @@
 package me.cgb.clog.print.file
 
+import me.cgb.clog.data.LogItem
 import me.cgb.clog.internal.Defaults
 import me.cgb.clog.print.AbstractTypesettingPrintAdapter
 import me.cgb.clog.print.file.clean.ICleanStrategy
@@ -35,11 +36,11 @@ class FilePrintAdapter(builder: Builder) : AbstractTypesettingPrintAdapter() {
     private val executor: ExecutorService = builder.executor ?: Defaults.defaultFilePrintExecutor()
     private val worker = Worker()
 
-    override fun println(content: String) {
+    override fun println(item: LogItem) {
         if (!worker.isStarted) {
             executor.execute(worker)
         }
-        worker.enqueue(content)
+        worker.enqueue(item.msg)
     }
 
     private fun doPrintln(content: String) {
